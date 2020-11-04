@@ -1,6 +1,6 @@
 function [xmin, fmin, neval, coordinates] = prsearch(f,df,x0,tol)
 % prsearch searches for minimum using Polak-Ribiere method
-% 	[xmin, fmin, neval, coordinates] = polakribiere(f,df,x0,tol)
+% 	[xmin, fmin, neval, coordinates] = prsearch(f,df,x0,tol)
 %   INPUT ARGUMENTS
 % 	f is a function handle
 % 	df is a gradient function handle
