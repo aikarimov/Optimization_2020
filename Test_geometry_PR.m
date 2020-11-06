@@ -52,17 +52,19 @@ x23=x2-dx2*t0;
 y23=y2-dy2*t0;
 f23=f2;
 
-%point between x2 and x3: 
-%vector end of -grad(xsecond) and beta*p0 vector sum
-t1=1.05; %coefficient for streching the vector
-x23last=(((-dx2.*(-dx2+x2)./dy2-y2+x2-dx2)+x2.*(y3-y2)./(x3-x2))./((y3-y2)./(x3-x2)-dx2/dy2))*t1;
-y23last=((x23last-x2).*(y3-y2)./(x3-x2)+y2)*t1;
-f23last=f2;
 
 %minimum point (last iteration of PR)
 x3=xmin_(1);
 y3=xmin_(2);
 f3=fmin;
+
+%point between x2 and x3: 
+%vector end of -grad(xsecond) and beta*p0 vector sum
+t1=1.045; %coefficient for streching the vector
+x23last=(((-dx2.*(-dx2+x2)./dy2-y2+x2-dx2)+x2.*(y3-y2)./(x3-x2))./((y3-y2)./(x3-x2)-dx2/dy2))*t1;
+y23last=((x23last-x2).*(y3-y2)./(x3-x2)+y2)*t1;
+f23last=f2;
+
 
 %% planes
 %plane between xstart and xsecond
