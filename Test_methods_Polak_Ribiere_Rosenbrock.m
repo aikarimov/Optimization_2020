@@ -25,7 +25,7 @@ funname = 'Rosenbrock';
 
 %% Добавляем указатели на функцию методов оптимизации
 
-optimfun = @prsearch2;
+optimfun = @prsearch;
 optfunname = 'Polak–Ribiere';
 
 %% настраиваем начальную точку
