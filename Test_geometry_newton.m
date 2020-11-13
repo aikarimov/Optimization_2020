@@ -121,8 +121,8 @@ surf(xx,yy,F,'FaceAlpha',0.7,'EdgeColor','none','FaceColor','interp','AmbientStr
 view(viewvect); %направление взгляда
 grid; %сетка
 %подписи осей
-xlabel('$x$','interpreter','latex');
-ylabel('$y$','interpreter','latex');
+xlabel('$x_1$','interpreter','latex');
+ylabel('$x_2$','interpreter','latex');
 zlabel('$f$','interpreter','latex');
 set(gca,'TickLabelInterpreter','latex');
 set(1,'position',[10 100 370 300]);
@@ -159,9 +159,9 @@ axis([xmin xmax ymin ymax zmin zmax]);
 %раскраска графиков в соответствии с лимитами по z
 caxis([zmin zmax]);
 %подписи осей
-xlabel('$x$','interpreter','latex');
-ylabel('$y$','interpreter','latex');
-zlabel('$f_x$','interpreter','latex');
+xlabel('$x_1$','interpreter','latex');
+ylabel('$x_2$','interpreter','latex');
+zlabel('$f_{x_1}$','interpreter','latex');
 set(gca,'TickLabelInterpreter','latex');
 %позиция и размер картинки
 set(gcf,'position',[30 100 370 300]);
@@ -182,9 +182,9 @@ plot3(xliney,yliney,zliney,'b-','LineWidth',1);
 
 axis([xmin xmax ymin ymax zmin zmax]);
 caxis([zmin zmax]);
-xlabel('$x$','interpreter','latex');
-ylabel('$y$','interpreter','latex');
-zlabel('$f_y$','interpreter','latex');
+xlabel('$x_1$','interpreter','latex');
+ylabel('$x_2$','interpreter','latex');
+zlabel('$f_{x_2}$','interpreter','latex');
 set(gca,'TickLabelInterpreter','latex');
 set(gcf,'position',[50 100 370 300]);
 
@@ -215,8 +215,8 @@ axis([xmin xmax ymin ymax zmin zmax]);
 %раскрашивание графиков
 caxis([zmin zmax]);
 %подписи осей
-xlabel('$x$','interpreter','latex');
-ylabel('$y$','interpreter','latex');
+xlabel('$x_1$','interpreter','latex');
+ylabel('$x_2$','interpreter','latex');
 zlabel('$z$','interpreter','latex');
 set(gca,'TickLabelInterpreter','latex');
 %позиция и размер

@@ -11,12 +11,18 @@ function [xmin, fmin, neval] = newtsearch(f,df,x0,tol)
 % 	fmin = f(xmin)
 % 	neval - number of function evaluations
 fSize = 11;
-%text(x0(1) + 0.2, x0(2) - 0.1, num2str(0),'FontSize',fSize,'interpreter','latex');
-text(x0(1) + 0.2, x0(2) - 0.1, f(x0), num2str(0),'FontSize',fSize,'interpreter','latex');
+text(x0(1) + 0.2, x0(2) - 0.1, num2str(0),'FontSize',fSize,'interpreter','latex');
+scatter([x0(1)],[x0(2)],'LineWidth',1.2,'Marker','s','MarkerEdgeColor','b');
+
+%text(x0(1) + 0.2, x0(2) - 0.1, f(x0), num2str(0),'FontSize',fSize,'interpreter','latex');
 k = 1;
 Kmax = 1000;
 dx = realmax;
 al = 1;
+
+%pause;
+export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+
 while(norm(dx) >= tol) && (k < Kmax)
     %recompute for k = k + 1
     H0 = H(df,x0, tol);
@@ -27,29 +33,28 @@ while(norm(dx) >= tol) && (k < Kmax)
     %draw new fragment
     % for 2D case
     %text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
-    %line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color','blue','Marker','s');  
+    line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color','blue','Marker','s');  
     
     %for 3D case
-    line([x0(1) x1(1)],[x0(2) x1(2)],[f(x0) f(x1)],'LineWidth',1.2,'Color','blue','Marker','s'); 
+    %line([x0(1) x1(1)],[x0(2) x1(2)],[f(x0) f(x1)],'LineWidth',1.2,'Color','blue','Marker','s'); 
 
     x0 = x1;
     k = k + 1;
     
-    pause; %pause and go after button pressed
-    %pause(0.1); %pause for 0.1 sec
+    %pause; %pause and go after button pressed
     
-%     if(k < 10)
-%         export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
-%     end
+     if(k < 10)
+         export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+    end
 end
 %plot final marker, 2D case
-%text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
+text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
 % 3D case
-text(x1(1) + 0.2, x1(2) - 0.1, f(x1), num2str(k),'FontSize',fSize,'interpreter','latex');
+%text(x1(1) + 0.2, x1(2) - 0.1, f(x1), num2str(k),'FontSize',fSize,'interpreter','latex');
 
-%scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]); % 2D case
-scatter3(x1(1),x1(2),f(x1),'ro','MarkerFaceColor',[1 0 0]); % 3D case
-%export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]); % 2D case
+%scatter3(x1(1),x1(2),f(x1),'ro','MarkerFaceColor',[1 0 0]); % 3D case
+export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 
 xmin = x1;
 fmin = feval(f,xmin);

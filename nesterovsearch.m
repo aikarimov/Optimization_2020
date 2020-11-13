@@ -10,7 +10,8 @@ function [xmin, fmin, neval] = nesterovsearch(f,df,x0,tol)
 % 	xmin is a function minimizer
 % 	fmin = f(xmin)
 % 	neval - number of function evaluations
-text(x0(1) + 0.05, x0(2) - 0.05, num2str(0),'FontSize',7);
+fSize = 11;
+text(x0(1) + 0.2, x0(2) - 0.1, num2str(0),'FontSize',fSize,'interpreter','latex');
 k = 1;
 Kmax = 1000;
 dx = realmax;
@@ -19,26 +20,37 @@ while(norm(dx) >= tol) && (k < Kmax)
     H0 = H(df,x0, tol);
     g0 = feval(df,x0);
     delta0 = sqrt(g0'*(H0^-1)*g0);
-    if delta0 <= 0.25
+    if delta0 <= 1/4
         al = 1;
     else
-        al = 1/(1 + delta0);
+        al = 0.9;%1/(1 + delta0);
     end
+    
     dx = - H0\g0;
     x1 = x0 + al*dx;
     
     %draw new fragment
-    text(x1(1)+ 0.2,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
-    line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
+    %text(x1(1)+ 0.2,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
+    col = 'blue';
+    if al < 1
+        col = 'green';
+    end
+    
+    line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color',col,'Marker','s');  
 
     x0 = x1;
     k = k + 1;
     
-    pause;
+    if(k < 10)
+         export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+    end
+    
+    %pause;
 end
 %plot final marker
-text(x1(1) + 0.1, x1(2) - 0.1, num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
+text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
+export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 
 xmin = x1;
 fmin = feval(f,xmin);

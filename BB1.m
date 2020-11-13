@@ -28,6 +28,11 @@ while(norm(deltaX) >= tol) && (k < Kmax)
     deltaF = df1 - df0;
     al = (deltaX'*deltaX) / (deltaX'*deltaF);
     
+        %stabilization
+     D = 0.1;
+     al_stab = D/norm(df1);
+     al = min([al,al_stab]);
+    
     %draw new fragment
 %     text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
     line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color','blue','Marker','s');
@@ -36,9 +41,14 @@ while(norm(deltaX) >= tol) && (k < Kmax)
     x0 = x1;
     k = k + 1;
     
-    pause;
+%      if(k < 10)
+%          export_fig(gcf,['BB1',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+%      end
+    
+%    pause;
 end
 text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
+%export_fig(gcf,['BB1',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 %plot final marker
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
 xmin = x1;
