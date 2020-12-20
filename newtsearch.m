@@ -21,7 +21,7 @@ dx = realmax;
 al = 1;
 
 %pause;
-export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+%export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 
 while(norm(dx) >= tol) && (k < Kmax)
     %recompute for k = k + 1
@@ -41,10 +41,10 @@ while(norm(dx) >= tol) && (k < Kmax)
     x0 = x1;
     k = k + 1;
     
-    %pause; %pause and go after button pressed
+    pause; %pause and go after button pressed
     
      if(k < 10)
-         export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+      %   export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
     end
 end
 %plot final marker, 2D case
@@ -54,7 +54,7 @@ text(x1(1) + 0.2, x1(2) - 0.1, num2str(k),'FontSize',fSize,'BackgroundColor','wh
 
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]); % 2D case
 %scatter3(x1(1),x1(2),f(x1),'ro','MarkerFaceColor',[1 0 0]); % 3D case
-export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+%export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 
 xmin = x1;
 fmin = feval(f,xmin);

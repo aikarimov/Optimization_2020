@@ -9,12 +9,16 @@ for i=1:1:neval
     x0 = coordinates(:, i);
     x1 = coordinates(:, i+1);
     line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color','blue','Marker','s');
-    pause;
+    %pause;
+    if i < 10
+        export_fig(gcf,['dfp',num2str(i), '.jpg'],'-r300','-transparent','-q100');
+    end
 end
 
 %plot final marker, 2D case
 text(x1(1) + 0.2, x1(2) - 0.1, num2str(neval),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]); % 2D case
+export_fig(gcf,['dfp',num2str(neval), '.jpg'],'-r300','-transparent','-q100');
 
 end
 

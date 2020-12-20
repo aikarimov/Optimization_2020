@@ -48,8 +48,8 @@ funname = 'Himmelblau';
 % optimfun = @gradsearch;
 % optfunname = 'Gradient';
 
-optimfun = @newtsearch;
-optfunname = 'Newton';
+%optimfun = @newtsearch;
+%optfunname = 'Newton';
 
 % optimfun = @nesterovsearch;
 % optfunname = 'Nesterov';

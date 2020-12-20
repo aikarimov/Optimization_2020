@@ -27,11 +27,11 @@ optimfun = @dfpsearch;
 optfunname = 'The Davidon-Fletcher-Powell method';
 
 %% starting point
-x0 = [2, 1]';
-% x0 = [0, 0]';
+x0 = [-3, -3]';
+%x0 = [0, 0]';
 
 %% tolerance
-tol = 1e-9;
+tol = 1e-3;
 
 %% function 
 for i = 1:n

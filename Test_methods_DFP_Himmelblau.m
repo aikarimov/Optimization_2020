@@ -32,7 +32,7 @@ optfunname = 'The Davidon-Fletcher-Powell method';
 x0 = [0, 0]';
 
 %% tolerance
-tol = 1e-9;
+tol = 1e-3;
 
 %% function 
 for i = 1:n

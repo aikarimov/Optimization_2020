@@ -12,9 +12,9 @@ Nfig = 10;
 neval = 1;
 % VISUALIZATION
 
-set(groot,'defaultAxesTickLabelInterpreter','latex'); 
-set(groot,'defaulttextinterpreter','latex');
-set(groot,'defaultLegendInterpreter','latex');
+% set(groot,'defaultAxesTickLabelInterpreter','latex'); 
+% set(groot,'defaulttextinterpreter','latex');
+% set(groot,'defaultLegendInterpreter','latex');
 
 eps = tol;
 ctr = 1;
@@ -30,7 +30,7 @@ subplot(2,1,1);
 ylim([miny, maxy + 9]);
 
 
-export_fig(gcf,'1-N.jpg','-transparent','-r300');
+%export_fig(gcf,'1-N.jpg','-transparent','-r300');
 
 
 % MAIN LOOP
@@ -52,7 +52,7 @@ while  abs(feval(df, x)) > tol
         drawplot(f,df,a,b,x,colp);
     end    
      if ctr <= Nfig
-         export_fig(gcf,[num2str(ctr),'-N.jpg'],'-transparent','-r300');
+     %    export_fig(gcf,[num2str(ctr),'-N.jpg'],'-transparent','-r300');
      end
 end
 xmin=x;
