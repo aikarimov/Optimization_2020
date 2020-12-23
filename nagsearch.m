@@ -34,7 +34,7 @@ while(norm(deltaX) >= tol)
 
     
     %plot new line fragment
-    %line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
+    line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
 
 
     df0 = feval(df,y1);
