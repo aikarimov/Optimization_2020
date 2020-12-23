@@ -23,13 +23,14 @@ interval = [-1;1];
 deltaX = tol;
 k = 1;
 nu = al/3; %parameter nu from 0.001 to 1 (maybe yes maybe no)
+gamma = 0.99;
 y0 = x0;
 while(norm(deltaX) >= tol)
     
     %x1 = y0 - nu*df0/norm(df0);
    
     x1 = y0 - nu*df0;
-    y1 = x1 + k/(k+3)*(x1 - x0);
+    y1 = x1 + gamma*k/(k+3)*(x1 - x0);
 
     
     %plot new line fragment
