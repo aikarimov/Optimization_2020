@@ -13,39 +13,39 @@ function [xmin, fmin, neval] = nagsearch(f,df,x0,tol)
 
 df0 = feval(df,x0);
 
-text(x0(1)+0.05,x0(2)-0.05,'0','FontSize',11);
+text(x0(1)+0.05,x0(2)-0.05,'0','FontSize',11,'interpreter','latex');
 
 %set initial step using goldensection method
-g = df0/norm(df0);
+g = df0;
 f1dim = @(al)(feval(f,x0 - al*g));
 interval = [-1;1];
 [al,~,~] = goldensectionsearch(f1dim,interval,tol);
 deltaX = tol;
 k = 1;
-nu=0.001; %parameter nu from 0.001 to 1 (maybe yes maybe no)
+nu = al/3; %parameter nu from 0.001 to 1 (maybe yes maybe no)
 y0 = x0;
 while(norm(deltaX) >= tol)
     
-    %x1 = x0 - al*df0/norm(df0);
+    %x1 = y0 - nu*df0/norm(df0);
    
     x1 = y0 - nu*df0;
     y1 = x1 + k/(k+3)*(x1 - x0);
 
     
     %plot new line fragment
-    text(x1(1)+ 0.1,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
-    line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
+    %line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
 
 
     df0 = feval(df,y1);
-    deltaX = x1 - x0;
+    %deltaX = x1 - x0;
+    deltaX = df0;
     x0 = x1;
     y0 = y1;
     k = k + 1;
-    pause;
+    %pause;
 end
 %plot final marker
-text(x1(1) + 0.1, x1(2) - 0.1, num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
+text(x1(1) + 0.1, x1(2) - 0.1, num2str(k),'FontSize',11,'BackgroundColor','white','interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
 xmin = x1;
 fmin = feval(f,xmin);
