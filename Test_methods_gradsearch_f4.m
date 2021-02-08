@@ -2,11 +2,11 @@
 
 %% Подготовка к рисованию
 %Закроем все окна
-close all
+%close all
 
 % настраиваем оси x и y
-x1 = [-4:0.1:4]; m = length(x1);
-y1 = [-4:0.1:4]; n = length(y1);
+x1 = [-6:0.1:6]; m = length(x1);
+y1 = [-6:0.1:6]; n = length(y1);
 
 % делаем сетку
 [xx, yy] = meshgrid(x1,y1);
@@ -17,23 +17,34 @@ dFx = zeros(n,m);
 dFy = zeros(n,m);
 
 %% Добавляем указатели на тестовую функцию и ее производную
+ 
+%функция Розенброка
+% fun = @f_rosenbrock;
+% dfun = @df_rosenbrock;
+% funname = 'Rosenbrock';
 
-%функция розенброка
-fun = @f_rosenbrock;
-dfun = @df_rosenbrock;
-funname = 'Rosenbrock';
+%функция Химмельблау
+% fun = @f_himmelblau;
+% dfun = @df_himmelblau;
+% funname = 'Himmelblau';
+
+
+%Параболоид 4 степени
+fun = @f_4;
+dfun = @df_4;
+funname = 'Fun 4 ord';
 
 %% Добавляем указатели на функцию методов оптимизации
 
-optimfun = @nagsearch;
-optfunname = 'NAGsearch';
+ optimfun = @gradsearch;
+ optfunname = 'Gradient';
 
 %% настраиваем начальную точку
-% x0=[-2.5,2.5]';
-%x0=[-1.5,-3]';
-x0=[1.2,1.1]';
+%x0 = [-2, -3]';
+x0 = [2, 2]';
+%x0 = [2, 1]';
 %% настраиваем точность (одна на все критерии останова)
-tol = 1e-5;
+tol = 1e-3;
 
 %% вычисляем рельеф поверхности
 for i = 1:n
@@ -68,7 +79,7 @@ set(1,'position',[100 30 660 600]);
 set(gca,'TickLabelInterpreter','latex','FontSize',11);
 
 %% запускаем оптимизацию
-[xmin, fmin, neval] = optimfun(fun,dfun,x0,tol)
+[xmin, fmin, neval] = feval(optimfun,fun,dfun,x0,tol)
 
 %% получившуюся картинку экспортируем с помощью библиотеки export_fig
 %export_fig(1,[funname,' ',optfunname,'.jpg'],'-transparent','-r300');

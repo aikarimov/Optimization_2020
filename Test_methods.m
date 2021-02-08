@@ -24,15 +24,15 @@ dFy = zeros(n,m);
 % funname = 'Rosenbrock';
 
 %функция Химмельблау
-fun = @f_himmelblau;
-dfun = @df_himmelblau;
-funname = 'Himmelblau';
+% fun = @f_himmelblau;
+% dfun = @df_himmelblau;
+% funname = 'Himmelblau';
 
 
 %Параболоид 4 степени
-% fun = @f_4;
-% dfun = @df_4;
-% funname = 'Fun 4 ord';
+fun = @f_4;
+dfun = @df_4;
+funname = 'Fun 4 ord';
 
 %% Добавляем указатели на функцию методов оптимизации
 
@@ -45,8 +45,9 @@ funname = 'Himmelblau';
 % optimfun = @sdsearch;
 % optfunname = 'Steepest Descent';
 
-% optimfun = @gradsearch;
-% optfunname = 'Gradient';
+%optimfun = @gradsearch;
+%optimfun = @gradientdescent;
+optfunname = 'Gradient';
 
 %optimfun = @newtsearch;
 %optfunname = 'Newton';
@@ -94,7 +95,7 @@ set(1,'position',[100 30 660 600]);
 set(gca,'TickLabelInterpreter','latex','FontSize',11);
 
 %% запускаем оптимизацию
-[xmin, fmin, neval] = feval(optimfun,fun,dfun,x0,tol);
+[xmin, fmin, neval] = feval(optimfun,fun,dfun,x0,tol)
 
 %% получившуюся картинку экспортируем с помощью библиотеки export_fig
 %export_fig(1,[funname,' ',optfunname,'.jpg'],'-transparent','-r300');

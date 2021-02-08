@@ -31,6 +31,8 @@ while((norm(g0) >= tol) && (k < Kmax))
     
     g = df(x1);
     b=(g'*(g-g0))/(g0'*g0); %Polak-Ribiere coefficient
+    %b = -g'*g /( (g - g0)'*p0); %Dai Yuan method
+    %b=-(g'*g0)/((g - g0)'*p0); %My stupid coefficient
     %for direction reset
     if b<0
         b=0;

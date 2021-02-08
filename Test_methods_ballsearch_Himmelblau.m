@@ -2,7 +2,7 @@
 
 %% Подготовка к рисованию
 %Закроем все окна
-close all
+%close all
 
 % настраиваем оси x и y
 x1 = [-4:0.1:4]; m = length(x1);
@@ -18,22 +18,23 @@ dFy = zeros(n,m);
 
 %% Добавляем указатели на тестовую функцию и ее производную
 
-%функция розенброка
-fun = @f_rosenbrock;
-dfun = @df_rosenbrock;
-funname = 'Rosenbrock';
+%функция Химмельблау
+fun = @f_himmelblau;
+dfun = @df_himmelblau;
+funname = 'Himmelblau';
 
 %% Добавляем указатели на функцию методов оптимизации
 
-optimfun = @nagsearch;
-optfunname = 'NAGsearch';
+optimfun = @ballsearch;
+optfunname = 'heavy ball search';
 
 %% настраиваем начальную точку
 % x0=[-2.5,2.5]';
-%x0=[-1.5,-3]';
-x0=[1.2,1.1]';
+%x0=[1.5,3]';
+%x0=[2,3]';
+x0 = [0, 1]';
 %% настраиваем точность (одна на все критерии останова)
-tol = 1e-5;
+tol = 1e-3;
 
 %% вычисляем рельеф поверхности
 for i = 1:n
@@ -68,7 +69,7 @@ set(1,'position',[100 30 660 600]);
 set(gca,'TickLabelInterpreter','latex','FontSize',11);
 
 %% запускаем оптимизацию
-[xmin, fmin, neval] = optimfun(fun,dfun,x0,tol)
+[xmin, fmin, neval] = optimfun(fun,dfun,x0,tol);
 
 %% получившуюся картинку экспортируем с помощью библиотеки export_fig
 %export_fig(1,[funname,' ',optfunname,'.jpg'],'-transparent','-r300');

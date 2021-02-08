@@ -7,5 +7,5 @@ function v = f_4(X)
 %	v is a function value
 x = X(1);
 y = X(2);
-v = (x.^4 + y.^4 + 1*x*y);
+v = (x.^4 + 100*y.^4 + 1*x*y);
 end

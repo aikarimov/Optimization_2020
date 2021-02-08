@@ -31,7 +31,8 @@ function [xmin, fmin, neval] = goldensectionsearch(f,interval,tol)
             x1 = x2; y1 = y2;
             L = b - a;
             x2 = a + L/Phi;
-            y2 = feval(f,x2); neval = neval + 1;
+            y2 = feval(f,x2); 
+            neval = neval + 1;
         else
             b = x2;
             xmin = x1;
@@ -39,7 +40,8 @@ function [xmin, fmin, neval] = goldensectionsearch(f,interval,tol)
             x2 = x1; y2 = y1;
             L = b - a;
             x1 = b - L/Phi;
-            y1 = feval(f,x1); neval = neval + 1;
+            y1 = feval(f,x1); 
+            neval = neval + 1;
         end
     end
 end

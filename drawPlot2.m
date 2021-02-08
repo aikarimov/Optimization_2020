@@ -4,21 +4,21 @@ function drawPlot2(coordinates, neval)
 fSize = 11;
 x0=coordinates(:,1);
 text(x0(1) + 0.2, x0(2) - 0.1, num2str(0),'FontSize',fSize,'interpreter','latex');
-for i=1:1:neval
+for i=1:1:neval-1
     
     x0 = coordinates(:, i);
     x1 = coordinates(:, i+1);
     line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1.2,'Color','blue','Marker','s');
     %pause;
     if i < 10
-        export_fig(gcf,['dfp',num2str(i), '.jpg'],'-r300','-transparent','-q100');
+    %    export_fig(gcf,['method',num2str(i), '.jpg'],'-r300','-transparent','-q100');
     end
 end
 
 %plot final marker, 2D case
 text(x1(1) + 0.2, x1(2) - 0.1, num2str(neval),'FontSize',fSize,'BackgroundColor','white','interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]); % 2D case
-export_fig(gcf,['dfp',num2str(neval), '.jpg'],'-r300','-transparent','-q100');
+%export_fig(gcf,['method',num2str(neval), '.jpg'],'-r300','-transparent','-q100');
 
 end
 
