@@ -19,14 +19,14 @@ dFy = zeros(n,m);
 %% Добавляем указатели на тестовую функцию и ее производную
  
 %функция Розенброка
-fun = @f_rosenbrock;
-dfun = @df_rosenbrock;
-funname = 'Rosenbrock';
+% fun = @f_rosenbrock;
+% dfun = @df_rosenbrock;
+% funname = 'Rosenbrock';
 
 %функция Химмельблау
-% fun = @f_himmelblau;
-% dfun = @df_himmelblau;
-% funname = 'Himmelblau';
+fun = @f_himmelblau;
+dfun = @df_himmelblau;
+funname = 'Himmelblau';
 
 
 %Параболоид 4 степени
@@ -56,11 +56,11 @@ optfunname = 'Steepest Descent';
 % optfunname = 'Nesterov';
 
 %% настраиваем начальную точку
-x0 = [-2, -3]';
-%x0 = [1.3, 2]';
+%x0 = [-2, -3]';
+x0 = [1.3, 2]';
 %x0 = [2, 1]';
 %% настраиваем точность (одна на все критерии останова)
-tol = 1e-5;
+tol = 1e-3;
 
 %% вычисляем рельеф поверхности
 for i = 1:n
