@@ -27,7 +27,7 @@ eta = 0.1;
 scatter(x0(1),x0(2),'bs','MarkerFaceColor',[0 0 1]);
 text(x0(1) + 0.2, x0(2) - 0.2, num2str(0),'FontSize',11,'interpreter','latex');
 plotReg(x0(1),x0(2),Delta); %show region in plot
-export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+%export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 %pause;
 B0 = eye(2);
 while(norm(dx) >= tol) && (k < Kmax) %check stopping criteria
@@ -69,7 +69,6 @@ while(norm(dx) >= tol) && (k < Kmax) %check stopping criteria
 
     
     %draw new fragment
-    %text(x1(1)+ 0.1,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
     line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
     x0 = x1;
     k = k + 1;
@@ -77,14 +76,15 @@ while(norm(dx) >= tol) && (k < Kmax) %check stopping criteria
     
     %pause;
     if(k < 10)
-         export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+    %     export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
     end
 end
 %plot final marker
 text(x1(1) + 0.2, x1(2) - 0.2, num2str(k),'FontSize',11,'interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
 
-export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+%export_fig(gcf,['trustreg',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+
 %return parameters
 xmin = x1;
 fmin = feval(f,xmin);
@@ -107,7 +107,11 @@ end
 function plotReg(x0,y0,Delta)
 %plot trust region
 r=Delta;
-fimplicit(@(x,y)((x-x0).^2 + (y-y0).^2 - r^2)); %plot circle
+%fimplicit(@(x,y)((x-x0).^2 + (y-y0).^2 - r^2)); %plot circle
+
+color = [0 0.4470 0.7410];
+rectangle('Position',[x0-r,y0-r,2*r,2*r],'Curvature',[1 1],'FaceColor',[color, 0.1],'EdgeColor','none')
+
 end
 
 function pmin = doglegsearch(mod,g0,B0,Delta,tol)
