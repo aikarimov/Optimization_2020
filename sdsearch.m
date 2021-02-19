@@ -16,13 +16,15 @@ text(x0(1)+0.05,x0(2)-0.05,'0','FontSize',8,'interpreter','latex');
 
 g = df0/norm(df0);
 f1dim = @(al)(feval(f,x0 - al*g));
-interval = [-1;1];
+interval = [0;10];
 [al,~,~] = goldensectionsearch(f1dim,interval,tol);
 deltaX = tol;
 k = 1;
+export_fig(gcf,['sd',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+
 while(norm(deltaX) >= tol)
     x1 = x0 - al*df0/norm(df0);
-    text(x1(1)+ 0.1,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
+    %text(x1(1)+ 0.1,x1(2)-0.05,num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
     line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
 
     df1 = feval(df,x1);
@@ -35,11 +37,15 @@ while(norm(deltaX) >= tol)
     df0 = df1;
     x0 = x1;
     k = k + 1;
-    pause;
+    %pause;
+    if(k <= 7)
+         export_fig(gcf,['sd',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+    end
 end
 %plot final marker
 text(x1(1) + 0.1, x1(2) - 0.1, num2str(k),'FontSize',8,'BackgroundColor','white','interpreter','latex');
 scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
+export_fig(gcf,['sd',num2str(k), '.jpg'],'-r300','-transparent','-q100');
 xmin = x1;
 fmin = feval(f,xmin);
 neval = k;
