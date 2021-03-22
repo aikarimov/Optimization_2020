@@ -26,6 +26,7 @@ deltaX = tol;
 k = 1; %iteration counter
 flag = 0; %0 and 1 for line search, 2 for quadratic search
 
+
 while  (norm(deltaX) >= tol) %(norm(g2) >= tol)
     if flag < 2
         %line search
