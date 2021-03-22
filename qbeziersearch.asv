@@ -1,0 +1,77 @@
+function [xmin, fmin, neval] = qbeziersearch(f,df,x0,tol)
+% QBEZIERSEARCH searches for minimum using simple quadratic Bezier approximation search
+% 	[xmin, fmin, neval] = NAGSEARCH(f,df,x0,tol)
+%   INPUT ARGUMENTS
+% 	f is a function
+% 	df is its derivative
+%   x0 is a starting point
+% 	tol - set for bot range and function value
+%   OUTPUT ARGUMENTS
+% 	xmin is a function minimizer
+% 	fmin = f(xmin)
+% 	neval - number of function evaluations
+
+text(x0(1)+0.05,x0(2)-0.05,'0','FontSize',11,'interpreter','latex');
+
+%set initial step using goldensection method
+x1 = x0;
+g1 = feval(df,x1);
+interval = [0;2];
+deltaX = tol;
+k = 1; %iteration counter
+flag = 0; %0 for line search, 1 for quadratic search
+
+while(norm(deltaX) >= tol)
+    if ~flag
+        %line search
+        f1dim = @(al)(feval(f,x1 - al*g1));
+        [al,~,~] = goldensectionsearch(f1dim,interval,tol);
+        x2 = x1 - al*g1; %line step
+        %plot new line fragment
+        line([x0(1) x1(1)],[x0(2) x1(2)],'LineWidth',1,'Color','blue','Marker','s');  
+        %next step is parabola step
+        flag = 1;
+    else
+        %parabola search
+        p0 = x0; 
+        p2 = x1;
+        %calculate p1
+        k = [g0, - g1]\(x0 - x1);
+        p10 = -g0*k(1) + x0;
+        p11 = -g1*k(2) + x1;
+        p1 = geomean([p10, p11]); %also may use 'mean' instead of 'geomean'
+        %new 1-dim search function
+        f1dim = @(t)(feval(f, (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2));
+        [t,~,~] = goldensectionsearch(f1dim,interval,tol);
+        
+        %make parabola step
+        x2 = (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2;
+        
+        
+        if t <= 1 && t >= 0 %if new step is within interval
+            flag = 0;
+        end
+    end
+    
+    
+    
+    %memory shift
+    g0 = g1;
+    g1 = feval(df,x2);
+    
+    x0 = x1;
+    x1 = x2;
+
+    %deltaX = x1 - x0;
+    deltaX = df0;
+    x0 = x1;
+    k = k + 1;
+    %pause;
+end
+%plot final marker
+text(x1(1) + 0.35, x1(2) + 0.1, num2str(k),'FontSize',11,'BackgroundColor','white','interpreter','latex');
+scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
+xmin = x1;
+fmin = feval(f,xmin);
+neval = k;
+end
