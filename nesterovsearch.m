@@ -23,7 +23,8 @@ while(norm(dx) >= tol) && (k < Kmax)
     if delta0 <= 1/4
         al = 1;
     else
-        al = 0.9;%1/(1 + delta0);
+        %al = 0.9;
+        al = 1/(1 + delta0);
     end
     
     dx = - H0\g0;
@@ -42,7 +43,7 @@ while(norm(dx) >= tol) && (k < Kmax)
     k = k + 1;
     
     if(k < 10)
-         export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
+        export_fig(gcf,['newt',num2str(k), '.jpg'],'-r300','-transparent','-q100');
     end
     
     %pause;

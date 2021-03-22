@@ -20,6 +20,7 @@ p0=-g0;
 interval = [-3;3];
 coordinates = zeros(2,1000);
 coordinates(:,1) = x0;
+
 while((norm(g0) >= tol) && (k < Kmax))
     f1dim = @(al)(f(x0 + al*p0));
     [al,~,~] = goldensectionsearch(f1dim,interval,tol);
@@ -27,8 +28,7 @@ while((norm(g0) >= tol) && (k < Kmax))
     x1 = x0 + al*p0;
     
     %update the coordinates
-    coordinates(:,k+2) = x1;
-    
+    coordinates(:,k+2) = x1;%
     g = df(x1);
     b=(g'*(g-g0))/(g0'*g0); %Polak-Ribiere coefficient
     %b = -g'*g /( (g - g0)'*p0); %Dai Yuan method

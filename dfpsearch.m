@@ -15,12 +15,12 @@ k = 1;
 Kmax = 1000;
 S0=eye(2);
 d0=1;
-interval = [-3;3];
+interval = [0;1];
 coordinates = zeros(2,1000);
 coordinates(:,1) = x0;
 while(norm(d0) >= tol) && (k < Kmax)
     %recompute for k = k + 1
-    g0=df(x0);
+    g0 = df(x0);
     d0 = -S0*g0;
     f1dim = @(al)(f(x0 + al*d0));
     [al,~,~] = goldensectionsearch(f1dim,interval,tol);
@@ -28,7 +28,7 @@ while(norm(d0) >= tol) && (k < Kmax)
     x1 = x0 + al*d0;
     
     %update the coordinates
-    coordinates(:,k+2) = x1;
+    coordinates(:,k+1) = x1;
     
     p0=al*d0;
     g1=df(x1);
