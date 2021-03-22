@@ -20,7 +20,7 @@ x1 = 0;
 
 x2 = x0;
 g2 = feval(df,x2);
-a_interval = [0;0.003]; %interval for a
+a_interval = [0;0.3]; %interval for a
 t_interval = [0; 2]; %interval for t
 deltaX = tol;
 k = 1; %iteration counter
@@ -38,27 +38,30 @@ while  (norm(deltaX) >= tol) %(norm(g2) >= tol)
         %next step is parabola step
         flag = flag + 1;
     else 
-        %parabola search
-        p0 = x0; 
-        %p1 = x1;
-        p2 = x2;
-%        %calculate p1
-         kvect = [g0, - g2]\(x0 - x2);
-         %kvect = [(g0 + 0.5*g1)/1.5, - (g2 + 0.5*g1)/1.5]\(x0 - x2);
-         kvect = [(g0 + g1)/2, - (g2 + g1)/2]\(x0 - x2);
-         p10 = -g0*kvect(1) + x0;
-         p11 = -g2*kvect(2) + x2;
-         p1 = 0.5*(p10 + p11);
+        %averaged line search
+        p0 = 0.5*(x0 + x1);
+        p1 = 0.5*(x1 + x2);
 
+        %calculate p1
+        %kvect = [g0, - g2]\(x0 - x2);
+        %kvect = [(g0 + g1)/2, - (g2 + g1)/2]\(x0 - x2);
+        %p10 = -g0*kvect(1) + x0;
+        %p11 = -g2*kvect(2) + x2;
+        %p1 = 0.5*(p10 + p11);
         %new 1-dim search function
-        f1dim = @(t)(feval(f, (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2));
+        %f1dim = @(t)(feval(f, (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2));
+        f1dim = @(t)(feval(f, (1 - t)*p0 + t*p1));
         [t,~,~] = goldensectionsearch(f1dim,t_interval,tol);
         
-        %make parabola step
-        x3 = (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2;
+        %make a new step
+        x3 = (1 - t)*p0 + t*p1;
         
         %plot it using some additional code
-        drawBezier2(p0,p1,p2,t);
+        %drawBezier2(p0,p1,p2,t);
+        drawBezier1(x0,x1,x2,p0,p1,x3);
+        
+        
+        flag = 1; %next step is the gradient step
         
 %         if t <= 1 && t >= 0 %if new step is within interval
 %             flag = 0;
@@ -78,7 +81,7 @@ while  (norm(deltaX) >= tol) %(norm(g2) >= tol)
     x2 = x3;
 
     k = k + 1;
-    %pause;
+    pause;
 end
 %plot final marker
 text(x3(1) + 0.35, x3(2) + 0.1, num2str(k),'FontSize',11,'BackgroundColor','white','interpreter','latex');
@@ -96,5 +99,14 @@ function drawBezier2(p0,p1,p2,tmax)
     scatter(Bspan(1,1),Bspan(2,1),'bs','LineWidth',1);
     scatter(Bspan(1,end),Bspan(2,end),'bs','LineWidth',1);
     scatter(p1(1),p1(2),'xr','LineWidth',0.75);
+end
+
+function drawBezier1(x0,x1,x2,p0,p1,x3)
+    line([p0(1)  x3(1)],[p0(2) x3(2)],'LineWidth',1,'Color','blue');  
+    scatter(x3(1),x3(2),'bs','LineWidth',1);
+    scatter(p0(1),p0(2),'xr','LineWidth',0.75);
+    scatter(p1(1),p1(2),'xr','LineWidth',0.75);
+    line([x0(1)  x1(1)],[x0(2) x1(2)],'LineWidth',0.75,'Color','red');  
+    line([x1(1)  x2(1)],[x1(2) x2(2)],'LineWidth',0.75,'Color','red');  
 end
 
