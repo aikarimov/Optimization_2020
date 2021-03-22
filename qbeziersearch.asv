@@ -20,12 +20,13 @@ x1 = 0;
 
 x2 = x0;
 g2 = feval(df,x2);
-interval = [0;2];
+a_interval = [0;0.3]; %interval for a
+t_interval = [0; 2
 deltaX = tol;
 k = 1; %iteration counter
 flag = 0; %0 and 1 for line search, 2 for quadratic search
 
-while(norm(deltaX) >= tol)
+while  (norm(deltaX) >= tol) %(norm(g2) >= tol)
     if flag < 2
         %line search
         f1dim = @(al)(feval(f,x2 - al*g2));
@@ -41,12 +42,12 @@ while(norm(deltaX) >= tol)
         %p1 = x1;
         p2 = x2;
 %        %calculate p1
-         %k = [g0, - g2]\(x0 - x2);
-         k = [g0, - g2]\(x0 - x2);
-         p10 = -g0*k(1) + x0;
-         p11 = -g2*k(2) + x2;
+         kvect = [g0, - g2]\(x0 - x2);
+         %kvect = [(g0 + 0.5*g1)/1.5, - (g2 + 0.5*g1)/1.5]\(x0 - x2);
+         kvect = [(g0 + g1)/2, - (g2 + g1)/2]\(x0 - x2);
+         p10 = -g0*kvect(1) + x0;
+         p11 = -g2*kvect(2) + x2;
          p1 = 0.5*(p10 + p11);
-         %p1 = (p10 + p11 + x1)/3;
 
         %new 1-dim search function
         f1dim = @(t)(feval(f, (1 - t)^2*p0 + 2*t*(1-t)*p1 + t^2*p2));
@@ -76,11 +77,11 @@ while(norm(deltaX) >= tol)
     x2 = x3;
 
     k = k + 1;
-    pause;
+   % pause;
 end
 %plot final marker
-text(x1(1) + 0.35, x1(2) + 0.1, num2str(k),'FontSize',11,'BackgroundColor','white','interpreter','latex');
-scatter(x1(1),x1(2),'ro','MarkerFaceColor',[1 0 0]);
+text(x3(1) + 0.35, x3(2) + 0.1, num2str(k),'FontSize',11,'BackgroundColor','white','interpreter','latex');
+scatter(x3(1),x3(2),'ro','MarkerFaceColor',[1 0 0]);
 xmin = x1;
 fmin = feval(f,xmin);
 neval = k;
