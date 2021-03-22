@@ -29,7 +29,7 @@ optfunname = 'The Davidon-Fletcher-Powell method';
 %% starting point
 % x0 = [1, 0]';
 % x0 = [2, 1]';
-x0 = [0, 0]';
+x0 = [1, 0]';
 
 %% tolerance
 tol = 1e-3;
