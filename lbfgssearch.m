@@ -14,7 +14,7 @@ function [xmin, fmin, neval, coordinates] = lbfgssearch(f,df,x0,tol)
 k = 1;
 Kmax = 1900;
 dim = length(x0); %problem dimension
-M = 20; %max number of stored elements
+M = 1; %max number of stored elements
 m = 0; %actual stored length
 %values for Armijo search:
 s = 1;
